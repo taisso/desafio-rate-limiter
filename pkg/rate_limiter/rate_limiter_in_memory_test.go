@@ -9,7 +9,7 @@ import (
 )
 
 func TestIsAllowedInMemory(t *testing.T) {
-	inMemoryStorage := in_memory_storage.NewInMemoryRateLimiterStrategy()
+	inMemoryStorage := in_memory_storage.NewInMemoryRateLimiter()
 	rt := setup(t, inMemoryStorage)
 
 	t.Run("is_allowed", (func(t *testing.T) {
@@ -30,7 +30,7 @@ func TestIsAllowedInMemory(t *testing.T) {
 }
 
 func TestMiddlewareInMemory(t *testing.T) {
-	inMemoryStorage := in_memory_storage.NewInMemoryRateLimiterStrategy()
+	inMemoryStorage := in_memory_storage.NewInMemoryRateLimiter()
 
 	rt := setup(t, inMemoryStorage)
 

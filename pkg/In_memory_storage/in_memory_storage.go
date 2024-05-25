@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-type InMemoryRateLimiterStrategy struct {
+type InMemoryRateLimiter struct {
 	mu     sync.Mutex
 	values map[string]rateLimitCounter
 }
@@ -16,13 +16,13 @@ type rateLimitCounter struct {
 	Expiry time.Time
 }
 
-func NewInMemoryRateLimiterStrategy() *InMemoryRateLimiterStrategy {
-	return &InMemoryRateLimiterStrategy{
+func NewInMemoryRateLimiter() *InMemoryRateLimiter {
+	return &InMemoryRateLimiter{
 		values: make(map[string]rateLimitCounter),
 	}
 }
 
-func (s *InMemoryRateLimiterStrategy) Incr(ctx context.Context, key string, expiration time.Duration) error {
+func (s *InMemoryRateLimiter) Incr(ctx context.Context, key string, expiration time.Duration) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
@@ -41,7 +41,7 @@ func (s *InMemoryRateLimiterStrategy) Incr(ctx context.Context, key string, expi
 	return nil
 }
 
-func (s *InMemoryRateLimiterStrategy) Get(ctx context.Context, key string) (int, error) {
+func (s *InMemoryRateLimiter) Get(ctx context.Context, key string) (int, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
