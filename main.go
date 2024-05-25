@@ -24,7 +24,7 @@ func main() {
 	ttlInt, _ := strconv.Atoi(ttl)
 	limitInt, _ := strconv.Atoi(limit)
 
-	inMemoryStorage := in_memory_storage.NewInMemoryRateLimiter()
+	inMemoryStorage := in_memory_storage.NewInMemoryStorage()
 	redisStorage := redis_storage.NewRedisStorage("localhost:6379", "")
 
 	rateLimiterRedis := rate_limiter.NewRateLimiter(redisStorage, limitInt, ttlInt)
