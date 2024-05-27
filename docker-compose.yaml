@@ -2,7 +2,16 @@ version: "3.5"
 
 services:
   redis:
-    container_name: redis-rate-limiter
+    container_name: redis_rate_limiter
     image: redis
     ports:
       - "6379:6379"
+
+  rate_limiter:
+    container_name: rate_limiter_golang
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
